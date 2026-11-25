@@ -1,28 +1,29 @@
 # Oráculo Vida
 
-Projeto independente para consultas de astrologia, tarot e numerologia.
+Aplicação full-stack em um único repositório. O backend Java/Spring Boot serve a API e a interface web; front-end, back-end, cálculos, testes e documentação ficam versionados juntos.
 
-## Entrega inicial
+## Identidade
+- Paleta: roxo profundo `#100D21`, violeta `#4E369C`, lilás `#CCBEFF`, dourado suave `#FFE09D`.
+- Interface responsiva, glassmorphism discreto, animações sutis e tipografia compacta.
+- Produto enxuto: Matriz do Destino, Mapa Astral e Numerologia como núcleo.
 
-Backend Java 17 / Spring Boot com endpoint de transcrição de áudio Gemini. Somente o conceito de transcrição foi reaproveitado do projeto anterior. Não foram copiados pagamentos, Firebase, login ou interface.
+## Estrutura
+- `src/main/java`: API Spring Boot.
+- `src/main/resources/static`: interface servida pelo Spring Boot.
+- `docs`: escopo e plano.
+- `src/test`: testes.
 
-Ainda **não está pronto para produção**. Faltam interface, autenticação por usuário, controle persistente de cotas e rate limiting, pagamentos reais, política de retenção, testes e implementação das consultas.
-
-## Execução
-
-Instale Java 17 e Maven. Defina `GEMINI_API_KEY`, `GEMINI_MODEL` (modelo compatível com áudio) e `ORACULO_INTERNAL_TOKEN` no ambiente. Depois execute `mvn spring-boot:run`.
-
-- `GET /api/health`
-- `POST /api/transcriptions`, multipart/form-data, campo `file`, cabeçalho `X-Internal-Token`.
-
-Exemplo:
-
+## Execução local
+Requisitos: Java 17+ e Maven.
 ```bash
-curl -X POST http://localhost:8080/api/transcriptions -H "X-Internal-Token: $ORACULO_INTERNAL_TOKEN" -F "file=@audio.mp3"
+mvn spring-boot:run
 ```
+A aplicação: http://localhost:8080.
 
-O token é destinado somente a comunicação servidor a servidor. **Não o exponha em aplicativos cliente.** MIME informado pelo cliente é verificado apenas contra uma lista, não por inspeção binária. Implementar validação real de arquivo e controles adicionais antes do lançamento.
+## Status
+A branch `rebuild/fullstack-oraculo-vida` contém a reconstrução em andamento. Recursos ainda não implementados devem ficar claramente identificados como indisponíveis, sem simular cálculos nem inventar resultados.
 
-## Licenciamento
+## Segurança
+Não colocar tokens ou chaves de IA no frontend. Dados de nascimento e localização são pessoais; minimizar coleta e não persistir sem consentimento. IA explica resultados, mas cálculos são determinísticos e testados.
 
-Nenhum arquivo de licença foi adicionado. Para código proprietário, recomenda-se manter o repositório privado.
+Consulte `docs/PRODUCT-SCOPE.md` e `docs/IMPLEMENTATION-PLAN.md`.
